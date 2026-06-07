@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="3DGraphicsLibrary/3DGraphicsLibrary.csproj" />
+  <Project Path="Object3DLibrary/Object3DLibrary.csproj" />
+</Solution>

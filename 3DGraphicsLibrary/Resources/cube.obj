@@ -1,0 +1,18 @@
+﻿# Simple unit cube centered at origin (side length = 1)
+# 8 vertices
+v -0.5 -0.5 -0.5
+v  0.5 -0.5 -0.5
+v  0.5  0.5 -0.5
+v -0.5  0.5 -0.5
+v -0.5 -0.5  0.5
+v  0.5 -0.5  0.5
+v  0.5  0.5  0.5
+v -0.5  0.5  0.5
+
+# 6 faces (quads) - each line "f" définit un polygone par indices 1-based
+f 5 6 7 8
+f 1 4 3 2
+f 1 5 8 4
+f 2 3 7 6
+f 4 8 7 3
+f 1 2 6 5
