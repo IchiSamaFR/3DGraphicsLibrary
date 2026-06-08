@@ -42,6 +42,7 @@ namespace _3DGraphicsLibrary
         public DrawElement()
         {
             _object3D = ObjectParser.Parse(File.ReadAllText("Resources/cube.obj"));
+            _object3D.Position = new Vector3(0, 0, 5);
 
             _timer = new DispatcherTimer { Interval = _dt };
             _timer.Tick += Timer_Tick;
@@ -55,7 +56,7 @@ namespace _3DGraphicsLibrary
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            _angle += (float)_dt.TotalSeconds;
+            _object3D.Rotation = _object3D.Rotation + new Vector3(0, (float)_dt.TotalSeconds, 0);
             //Z += (float)_dt.TotalSeconds;
             InvalidateVisual();
         }
@@ -63,57 +64,7 @@ namespace _3DGraphicsLibrary
         protected override void OnRender(DrawingContext context)
         {
             var brush = new SolidColorBrush(Colors.LightBlue);
-
-            foreach (var point in _object3D.Vertices)
-            {
-                //var rotatedPoint = RotateY(point, _angle);
-                //context.DrawRectangle(brush, null, GetRect(Position + rotatedPoint));
-            }
-
-            foreach (var faces in _object3D.Faces)
-            {
-                for (int i = 0; i < faces.Length; i++)
-                {
-                    var point = ToScreen(Get2DPoint(Position + RotateY(_object3D.Vertices[faces[i].VertexIndex], _angle)));
-                    var nextPoint = ToScreen(Get2DPoint(Position + RotateY(_object3D.Vertices[faces[(i + 1) % faces.Length].VertexIndex], _angle)));
-                    context.DrawLine(new Pen(brush, 1),
-                        new Point(X + point.X, Y + point.Y),
-                        new Point(X + nextPoint.X, Y + nextPoint.Y));
-                }
-            }
-        }
-
-        private Vector3 RotateY(Vector3 point, float angle)
-        {
-            float cos = (float)Math.Cos(angle);
-            float sin = (float)Math.Sin(angle);
-            return new Vector3(
-                point.X * cos - point.Z * sin,
-                point.Y,
-                point.X * sin + point.Z * cos);
-        }
-
-        private Rect GetRect(Vector3 point)
-        {
-            if (point.Z <= 0)
-            {
-                return new Rect();
-            }
-
-            int size = 10;
-            var screenPoint = ToScreen(Get2DPoint(point));
-            return new Rect(new Point(screenPoint.X - size / 2, screenPoint.Y - size / 2), new Point(screenPoint.X + size / 2, screenPoint.Y + size / 2));
-        }
-        private Vector2 ToScreen(Vector2 point)
-        {
-            return new Vector2(
-                (point.X + 1) / 2 * (float)ActualWidth,
-                (1 - (point.Y + 1) / 2) * (float)ActualHeight);
-        }
-
-        private Vector2 Get2DPoint(Vector3 point)
-        {
-            return new Vector2(point.X / point.Z, point.Y / point.Z);
+            context.DrawObject3D(_object3D, brush, (float)ActualWidth, (float)ActualHeight);
         }
     }
 }
