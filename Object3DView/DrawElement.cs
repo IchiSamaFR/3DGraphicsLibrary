@@ -10,7 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Threading;
 
-namespace _3DGraphicsLibrary
+namespace Object3DView
 {
     public partial class DrawElement : FrameworkElement
     {

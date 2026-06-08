@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace _3DGraphicsLibrary
+namespace Object3DView
 {
     /// <summary>
     /// Interaction logic for App.xaml

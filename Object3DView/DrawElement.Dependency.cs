@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace _3DGraphicsLibrary
+namespace Object3DView
 {
     public partial class DrawElement
     {

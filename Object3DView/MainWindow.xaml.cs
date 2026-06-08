@@ -10,7 +10,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace _3DGraphicsLibrary
+namespace Object3DView
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
