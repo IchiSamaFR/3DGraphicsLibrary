@@ -35,14 +35,13 @@ namespace Object3DView
         private Vector3 Position => new Vector3(X, Y, Z);
 
         private Object3D _object3D;
-        private float _angle = 0;
         private readonly TimeSpan _dt = TimeSpan.FromSeconds(1.0 / 60.0);
         private readonly DispatcherTimer _timer;
 
         public DrawElement()
         {
             _object3D = ObjectParser.Parse(File.ReadAllText("Resources/cube.obj"));
-            _object3D.Position = new Vector3(0, 0, 5);
+            _object3D.Position = new Vector3(0, 0, 2);
 
             _timer = new DispatcherTimer { Interval = _dt };
             _timer.Tick += Timer_Tick;
@@ -64,7 +63,8 @@ namespace Object3DView
         protected override void OnRender(DrawingContext context)
         {
             var brush = new SolidColorBrush(Colors.LightBlue);
-            context.DrawObject3D(_object3D, brush, (float)ActualWidth, (float)ActualHeight);
+            var camera = new Camera { Width = (float)ActualWidth, Height = (float)ActualHeight };
+            context.DrawObject3D(_object3D, camera, brush);
         }
     }
 }
