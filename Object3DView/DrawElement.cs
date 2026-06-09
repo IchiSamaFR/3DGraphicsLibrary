@@ -42,6 +42,7 @@ namespace Object3DView
         {
             _object3D = ObjectParser.Parse(File.ReadAllText("Resources/cube.obj"));
             _object3D.Position = new Vector3(0, 0, 2);
+            _object3D.Rotation = new Vector3(0, 45, 0);
 
             _timer = new DispatcherTimer { Interval = _dt };
             _timer.Tick += Timer_Tick;
@@ -55,7 +56,7 @@ namespace Object3DView
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            _object3D.Rotation = _object3D.Rotation + new Vector3(0, (float)_dt.TotalSeconds, 0);
+            _object3D.Rotation = _object3D.Rotation + new Vector3(1, 1, 0);
             //Z += (float)_dt.TotalSeconds;
             InvalidateVisual();
         }
