@@ -1,25 +1,25 @@
-﻿namespace Object3DLibrary.Entites;
+﻿using System.Numerics;
+
+namespace Object3DLibrary.Entites;
 
 public class Camera
 {
-    private float _width;
-    private float _height;
-
+    public Vector2 Size { get; private set; }
     public float Width
     {
-        get => _width;
+        get => Size.X;
         set
         {
-            _width = value;
+            Size = new Vector2(value, Height);
             UpdateSizePerUnit();
         }
     }
     public float Height
     {
-        get => _height;
+        get => Size.Y;
         set
         {
-            _height = value;
+            Size = new Vector2(Width, value);
             UpdateSizePerUnit();
         }
     }

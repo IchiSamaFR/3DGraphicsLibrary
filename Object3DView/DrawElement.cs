@@ -45,8 +45,8 @@ namespace Object3DView
 
         public DrawElement()
         {
-            _object3D = ObjectParser.Parse(File.ReadAllText("Resources/penguin.obj"));
-            _object3D.Position = new Vector3(0, 0, 2);
+            _object3D = ObjectParser.Parse(File.ReadAllText("Resources/bird.obj"));
+            _object3D.Position = new Vector3(0, 0, 50);
             _object3D.Rotation = new Vector3(0, 0, 0);
 
             _timer = new DispatcherTimer { Interval = _dt };
@@ -69,6 +69,9 @@ namespace Object3DView
         protected override async void OnRender(DrawingContext context)
         {
             var brush = new SolidColorBrush(Colors.LightBlue);
+            if (brush.CanFreeze)
+                brush.Freeze();
+            
             var camera = new Camera { Width = (float)ActualWidth, Height = (float)ActualHeight };
             context.DrawObject3D(_object3D, camera, brush);
 

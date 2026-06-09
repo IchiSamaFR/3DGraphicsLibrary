@@ -1,4 +1,5 @@
 ﻿using Object3DLibrary.Entites;
+using Object3DLibrary.Extensions;
 using System.Collections.Concurrent;
 using System.Numerics;
 using System.Windows;
@@ -32,6 +33,11 @@ public static class DrawingContextExtension
                 var nextRotated = Vector3.Transform(obj.Vertices[face[(Array.IndexOf(face, faceVertex) + 1) % face.Length].VertexIndex], rotationMatrix);
                 var nextVerticePosition = obj.Position + nextRotated;
 
+                if (verticePosition.Z < 0 || nextVerticePosition.Z < 0) // Simple back-face culling
+                {
+                    return;
+                }
+
                 var point = ToScreen(Get2DPoint(verticePosition), camera);
                 var nextPoint = ToScreen(Get2DPoint(nextVerticePosition), camera);
                 lines.Add(new ObjectLine(point, nextPoint));
@@ -41,6 +47,12 @@ public static class DrawingContextExtension
         // Dessin synchrone du contexte
         foreach (var line in lines)
         {
+            if (!line.Start.IsBetween(Vector2.Zero, camera.Size)
+                && !line.End.IsBetween(Vector2.Zero, camera.Size))
+            {
+                continue;
+            }
+
             dc.DrawLine(new Pen(brush, 1),
                 new Point((int)line.Start.X, (int)line.Start.Y),
                 new Point((int)line.End.X, (int)line.End.Y));
